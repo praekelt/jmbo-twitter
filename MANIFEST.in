@@ -1,0 +1,9 @@
+include AUTHORS.rst
+include CHANGELOG.rst
+include LICENSE
+include README.rst
+recursive-include downloads/fixtures *
+recursive-include downloads/management *
+recursive-include downloads/migrations *
+recursive-include downloads/templates *
+recursive-include downloads/templatetags *
