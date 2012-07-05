@@ -1,5 +1,7 @@
 import datetime, re, twitter
 
+from django.db import models
+
 
 class Feed(models.Model):
     """A feed represents  a twitter user account""" 
