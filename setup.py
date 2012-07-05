@@ -13,6 +13,7 @@ setup(
     url='http://github.com/praekelt/jmbo-twitter',
     packages = find_packages(),
     install_requires = [
+        'python-twitter',
         'jmbo>=0.1.20'
     ],
     include_package_data=True,
