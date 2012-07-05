@@ -1,4 +1,5 @@
 import datetime, re, twitter
+from urllib2 import URLError
 
 from django.db import models
 
@@ -21,7 +22,7 @@ class Feed(models.Model):
         # Query twitter taking care to handle network errors
         api = twitter.Api()
         try:
-            updates = api.GetUserTimeline(self.name, since_id=self.last_fetched_id)
+            updates = api.GetUserTimeline(self.name)
         except URLError:
             updates = []
         except ValueError:
@@ -30,14 +31,16 @@ class Feed(models.Model):
             # Happens when user is not on twitter anymore
             updates = []
 
-        for update in updates:            
+        for update in updates:
+            '''
             fu = FeedUpdate(
                 text=update.text[:140], 
                 created_date=datetime.datetime.fromtimestamp(update.created_at_in_seconds),
                 source=update.source[:255],
                 feed=self
             )
-            fu.save()        
+            fu.save()
+            '''
 
         if updates:
             # This is also a convenient place to set the feed image url
