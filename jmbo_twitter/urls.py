@@ -1,21 +1,16 @@
 from django.conf.urls.defaults import patterns, url, include
 
+from jmbo_twitter.models import Feed
+
 
 urlpatterns = patterns(
     '',
 
-    (
-        r'^admin/jmbo_twitter/(?P<name>[\w-]+)/fetch-force/$',  
-        'jmbo_twitter.admin_views.feed_fetch_force',
-        {'redirect_to' : '/admin/jmbo_twitter/feed'},
-        'feed-fetch-force',
-    ),
-
-    (
-        r'^admin/jmbo_twitter/(?P<name>[\w-]+)/tweets/$',  
-        'jmbo_twitter.admin_views.feed_tweets',
-        {},
-        'feed-tweets',
-    ),
+    url(
+        r'^feed/(?P<slug>[\w-]+)/$', 
+        'django.views.generic.list_detail.object_detail',
+        {'queryset': Feed.objects.all(), 'slug_field': 'name'},
+        name='feed-detail'
+    ),  
 
 )

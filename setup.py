@@ -14,7 +14,7 @@ setup(
     packages = find_packages(),
     install_requires = [
         'python-twitter',
-        'jmbo>=0.1.20'
+        'jmbo-foundry>=0.4',
     ],
     include_package_data=True,
     tests_require=[

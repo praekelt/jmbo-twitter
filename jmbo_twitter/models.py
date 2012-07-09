@@ -4,6 +4,31 @@ from urllib2 import URLError
 from django.db import models
 from django.core.cache import cache
 
+from jmbo.models import ModelBase
+
+
+class Status(ModelBase):
+    """Purely a wrapper that allows us to use jmbo-foundry's listings for 
+    tweets."""
+    def __init__(self, status):
+        # Copy attributes over
+        attrs = ('contributors', 'coordinates', 'created_at', \
+            'created_at_in_seconds', 'favorited', 'geo', 'hashtags', 'id', \
+            'in_reply_to_screen_name', 'in_reply_to_status_id', \
+            'in_reply_to_user_id', 'location', 'now', 'place', \
+            'relative_created_at', 'retweet_count', 'retweeted', \
+            'retweeted_status', 'source', 'text', 'truncated', 'urls', 'user', \
+            'user_mentions', 'created_at_datetime')
+        for attr in attrs:            
+            setattr(self, attr, getattr(status, attr))
+
+    @property
+    def as_leaf_class(self):
+        return self
+
+    def save(self):
+        raise NotImplemented
+
 
 class Feed(models.Model):
     """A feed represents  a twitter user account""" 
@@ -42,7 +67,7 @@ class Feed(models.Model):
             statuses = []
 
         for status in statuses:
-            status.created_at = datetime.datetime.fromtimestamp(
+            status.created_at_datetime = datetime.datetime.fromtimestamp(
                 status.created_at_in_seconds
             )
         
@@ -64,4 +89,15 @@ class Feed(models.Model):
 
     @property
     def tweets(self):
-        return self.fetch()
+        class MyList(list):
+            """Slightly emulate QuerySet API so jmbo-foundry listings work"""
+
+            @property
+            def exists(self):
+                return len(self) > 0
+
+        result = []
+        for status in self.fetch():
+            result.append(Status(status))
+
+        return MyList(result)

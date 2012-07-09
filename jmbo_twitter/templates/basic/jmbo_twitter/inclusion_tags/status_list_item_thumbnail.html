@@ -1,0 +1,16 @@
+{% load i18n jmbo_template_tags %}
+
+{% if not object.retweeted_status %}
+    <img src="{{ object.user.profile_image_url }}" />
+    <a href="http://twitter.com/{{ object.user.screen_name }}">{{ object.user.name }}</a>
+    <a href="http://twitter.com/{{ object.user.screen_name }}">@{{ object.user.screen_name }}</a>
+    {% humanize_time_diff object.created_at_datetime _('ago') %}
+    {{ object.text }}
+{% else %}
+    <img src="{{ object.retweeted_status.user.profile_image_url }}" />
+    <a href="http://twitter.com/{{ object.retweeted_status.user.screen_name }}">{{ object.retweeted_status.user.name }}</a>
+    <a href="http://twitter.com/{{ object.retweeted_status.user.screen_name }}">@{{ object.retweeted_status.user.screen_name }}</a>
+    {% humanize_time_diff object.created_at_datetime _('ago') %}
+    {{ object.retweeted_status.user.text }}
+    {% blocktrans with name=object.user.name %}Retweeted by {{ name }}{% endblocktrans %}
+{% endif %}

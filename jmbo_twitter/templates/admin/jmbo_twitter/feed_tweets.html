@@ -1,20 +1,20 @@
 {% extends "admin/base_site.html" %}
 {% load i18n jmbo_template_tags %}
 
-{% block content %}
+{% block content %}    
     <ul>
     {% for tweet in object.tweets %}
         <li>
             {% if not tweet.retweeted_status %}
                 <img src="{{ tweet.user.profile_image_url }}" />
-                <a href="http://twitter.com/{{ tweet.user.name }}">{{ tweet.user.name }}</a>
-                <a href="http://twitter.com/{{ tweet.user.name }}">@{{ tweet.user.screen_name }}</a>
+                <a href="http://twitter.com/{{ tweet.user.screen_name }}">{{ tweet.user.name }}</a>
+                <a href="http://twitter.com/{{ tweet.user.screen_name }}">@{{ tweet.user.screen_name }}</a>
                 {% humanize_time_diff tweet.created_at _('ago') %}
                 {{ tweet.text }}
             {% else %}
                 <img src="{{ tweet.retweeted_status.user.profile_image_url }}" />
-                <a href="http://twitter.com/{{ tweet.retweeted_status.user.name }}">{{ tweet.retweeted_status.user.name }}</a>
-                <a href="http://twitter.com/{{ tweet.retweeted_status.user.name }}">@{{ tweet.retweeted_status.user.screen_name }}</a>
+                <a href="http://twitter.com/{{ tweet.retweeted_status.user.screen_name }}">{{ tweet.retweeted_status.user.name }}</a>
+                <a href="http://twitter.com/{{ tweet.retweeted_status.user.screen_name }}">@{{ tweet.retweeted_status.user.screen_name }}</a>
                 {{ tweet.retweeted_status.user.text }}
                 {% blocktrans with name=tweet.user.name %}Retweeted by {{ name }}{% endblocktrans %}
             {% endif %}
