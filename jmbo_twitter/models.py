@@ -32,7 +32,7 @@ class Feed(models.Model):
         # Query twitter taking care to handle network errors
         api = twitter.Api()
         try:
-            statuses = api.GetUserTimeline(self.name)
+            statuses = api.GetUserTimeline(self.name, include_rts=True)
         except URLError:
             statuses = []
         except ValueError:
@@ -41,19 +41,11 @@ class Feed(models.Model):
             # Happens when user is not on twitter anymore
             statuses = []
 
-        print statuses
-        updates = []
-        keys = ('created_at', 'text', 'name', 'profile_image_url')
         for status in statuses:
-            # Discard keys we're not interested in. Need to do this since 
-            # memcache values have a max size.
-            di = {}
-            for key in keys:
-                di[key] = getattr(status, key, '%s not found' % key)
-            di['created_at'] = datetime.datetime.fromtimestamp(status.created_at_in_seconds)
-            updates.append(di)
-
-        print updates
+            status.created_at = datetime.datetime.fromtimestamp(
+                status.created_at_in_seconds
+            )
+        
         if statuses:
             # This is also a convenient place to set the feed image url
             status = statuses[0]
@@ -67,9 +59,9 @@ class Feed(models.Model):
             if changed:
                 self.save()
 
-        cache.set(cache_key, updates, 30)
-        return updates
+        cache.set(cache_key, statuses, 1200)
+        return statuses
 
     @property
-    def updates(self):
+    def tweets(self):
         return self.fetch()
