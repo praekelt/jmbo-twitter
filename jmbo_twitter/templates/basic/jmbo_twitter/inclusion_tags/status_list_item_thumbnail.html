@@ -11,6 +11,6 @@
     <a href="http://twitter.com/{{ object.retweeted_status.user.screen_name }}">{{ object.retweeted_status.user.name }}</a>
     <a href="http://twitter.com/{{ object.retweeted_status.user.screen_name }}">@{{ object.retweeted_status.user.screen_name }}</a>
     {% humanize_time_diff object.created_at_datetime _('ago') %}
-    {{ object.retweeted_status.user.text }}
+    {{ object.retweeted_status.text }}
     {% blocktrans with name=object.user.name %}Retweeted by {{ name }}{% endblocktrans %}
 {% endif %}

@@ -9,13 +9,14 @@
                 <img src="{{ tweet.user.profile_image_url }}" />
                 <a href="http://twitter.com/{{ tweet.user.screen_name }}">{{ tweet.user.name }}</a>
                 <a href="http://twitter.com/{{ tweet.user.screen_name }}">@{{ tweet.user.screen_name }}</a>
-                {% humanize_time_diff tweet.created_at _('ago') %}
+                {% humanize_time_diff tweet.created_at_datetime _('ago') %}
                 {{ tweet.text }}
             {% else %}
                 <img src="{{ tweet.retweeted_status.user.profile_image_url }}" />
                 <a href="http://twitter.com/{{ tweet.retweeted_status.user.screen_name }}">{{ tweet.retweeted_status.user.name }}</a>
                 <a href="http://twitter.com/{{ tweet.retweeted_status.user.screen_name }}">@{{ tweet.retweeted_status.user.screen_name }}</a>
-                {{ tweet.retweeted_status.user.text }}
+                {% humanize_time_diff tweet.created_at_datetime _('ago') %}
+                {{ tweet.retweeted_status.text }}
                 {% blocktrans with name=tweet.user.name %}Retweeted by {{ name }}{% endblocktrans %}
             {% endif %}
         </li>
