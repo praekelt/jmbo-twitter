@@ -33,23 +33,20 @@ class Status(ModelBase):
 class Feed(ModelBase):
     """A feed represents  a twitter user account""" 
     name = models.CharField(
-        max_length=50, 
+        max_length=255, 
         unique=True,
         help_text="A twitter account name, eg. johnsmith"
     )
-    full_name = models.CharField(max_length=255, help_text="The display name")
     profile_image_url = models.CharField(
         null=True, editable=False, max_length=255
     )
 
-    class Meta:
-        ordering = ('name',)
-
-    def __unicode__(self):
-        return self.name
+    def save(self, *args, **kwargs):
+        self.slug = self.name
+        super(ModelBase, self).save(*args, **kwargs)
 
     def fetch(self, force=False):
-        cache_key = 'jmbo_twitter_feed_%s' % self.name
+        cache_key = 'jmbo_twitter_feed_%s' % self.slug
         cached = cache.get(cache_key, None)
         if cached is not None:
             return cached
@@ -57,7 +54,7 @@ class Feed(ModelBase):
         # Query twitter taking care to handle network errors
         api = twitter.Api()
         try:
-            statuses = api.GetUserTimeline(self.name, include_rts=True)
+            statuses = api.GetUserTimeline(self.slug, include_rts=True)
         except URLError:
             statuses = []
         except ValueError:
@@ -78,8 +75,8 @@ class Feed(ModelBase):
             if status.user.profile_image_url != self.profile_image_url:
                 self.profile_image_url = status.user.profile_image_url
                 changed = True
-            if status.user.name != self.full_name:
-                self.full_name = status.user.name
+            if status.user.name != self.title:
+                self.title = status.user.name
                 changed = True
             if changed:
                 self.save()
