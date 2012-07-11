@@ -30,7 +30,7 @@ class Status(ModelBase):
         raise NotImplemented
 
 
-class Feed(models.Model):
+class Feed(ModelBase):
     """A feed represents  a twitter user account""" 
     name = models.CharField(
         max_length=50, 

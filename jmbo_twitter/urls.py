@@ -9,7 +9,7 @@ urlpatterns = patterns(
     url(
         r'^feed/(?P<slug>[\w-]+)/$', 
         'django.views.generic.list_detail.object_detail',
-        {'queryset': Feed.objects.all(), 'slug_field': 'name'},
+        {'queryset': Feed.permitted.all(), 'slug_field': 'name'},
         name='feed-detail'
     ),  
 
