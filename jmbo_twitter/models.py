@@ -1,4 +1,4 @@
-import datetime, re, twitter
+import datetime, twitter
 from urllib2 import URLError
 
 from django.db import models
@@ -67,7 +67,7 @@ class Feed(ModelBase):
             status.created_at_datetime = datetime.datetime.fromtimestamp(
                 status.created_at_in_seconds
             )
-        
+       
         if statuses:
             # This is also a convenient place to set the feed image url
             status = statuses[0]

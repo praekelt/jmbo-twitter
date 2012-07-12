@@ -1,4 +1,4 @@
-{% load i18n jmbo_template_tags %}
+{% load i18n jmbo_template_tags jmbo_twitter_tags %}
 
 {% if not object.retweeted_status %}
     <a href="http://twitter.com/{{ object.user.screen_name }}">
@@ -13,7 +13,7 @@
             {% humanize_time_diff object.created_at_datetime _('ago') %}
         </div>
         <div class="description">
-            {{ object.text }}
+            {{ object.text|tweetify|safe }}
         </div>        
     </div>
 {% else %}
@@ -29,7 +29,7 @@
             {% humanize_time_diff object.created_at_datetime _('ago') %}
         </div>
         <div class="description">
-            {{ object.retweeted_status.text }}
+            {{ object.retweeted_status.text|tweetify|safe }}
         </div>
         <div class="retweeted-by">
             {% blocktrans with name=object.user.name %}Retweeted by {{ name }}{% endblocktrans %}
