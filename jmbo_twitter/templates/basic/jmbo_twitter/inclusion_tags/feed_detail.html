@@ -1,5 +1,7 @@
 {% load i18n jmbo_template_tags foundry_tags %}
 
-<div class="feed-detail-inclusion">
-    {% listing object.tweets style='VerticalThumbnail' %}
+<div class="object-detail-inclusion feed-detail-inclusion">
+    <div class="tweets">
+        {% listing object.tweets style='VerticalThumbnail' %}
+    </div>
 </div>

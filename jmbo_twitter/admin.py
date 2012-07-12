@@ -1,11 +1,16 @@
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 
+from jmbo.admin import ModelBaseAdmin
+
 from jmbo_twitter import models
 
 
-class FeedAdmin(admin.ModelAdmin):
-    list_display = ('name', '_image', '_actions')
+class FeedAdmin(ModelBaseAdmin):
+    inlines = []
+    list_display = ('title', '_image', 'subtitle', 'publish_on', 'retract_on', \
+        '_get_absolute_url', 'owner', 'created', '_actions'
+    )
 
     def _image(self, obj):
         if obj.profile_image_url:
@@ -16,7 +21,12 @@ class FeedAdmin(admin.ModelAdmin):
     _image.allow_tags = True
 
     def _actions(self, obj):
-        return '''<ul>
+        # Once a newer version of jmbo is out the try-except can be removed
+        try:
+            parent = super(FeedAdmin, self)._actions(obj)
+        except AttributeError:
+            parent = ''
+        return parent + '''<ul>
             <li><a href="%s">Fetch tweets</a></li>
             <li><a href="%s">View tweets</a></li>
             </ul>''' % (
