@@ -21,6 +21,7 @@ class FeedAdmin(ModelBaseAdmin):
     _image.allow_tags = True
 
     def _actions(self, obj):
+        # Once a newer version of jmbo is out the try-except can be removed
         try:
             parent = super(FeedAdmin, self)._actions(obj)
         except AttributeError:
