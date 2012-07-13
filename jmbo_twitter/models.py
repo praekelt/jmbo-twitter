@@ -42,8 +42,12 @@ class Feed(ModelBase):
     )
 
     def save(self, *args, **kwargs):
-        self.slug = self.name
+        #self.title = 'Hedley Een Roos'
         super(Feed, self).save(*args, **kwargs)
+        # Set slug to name
+        self.slug = self.name
+        super(ModelBase, self).save(*args, **kwargs)
+
 
     def fetch(self, force=False):
         cache_key = 'jmbo_twitter_feed_%s' % self.slug
