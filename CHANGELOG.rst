@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.1.3
+-----
+#. Make admin resilient in case admin_urls.py is not in settings.
+
 0.1.2
 -----
 #. Fix bug where the twitter account name may be overridden.

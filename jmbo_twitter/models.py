@@ -42,7 +42,6 @@ class Feed(ModelBase):
     )
 
     def save(self, *args, **kwargs):
-        #self.title = 'Hedley Een Roos'
         super(Feed, self).save(*args, **kwargs)
         # Set slug to name
         self.slug = self.name
