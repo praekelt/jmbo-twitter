@@ -1,8 +1,8 @@
 Changelog
 =========
 
-next
-----
+0.1.3
+-----
 #. Make admin resilient in case admin_urls.py is not in settings.
 
 0.1.2
