@@ -40,16 +40,16 @@ class Feed(ModelBase):
     profile_image_url = models.CharField(
         null=True, editable=False, max_length=255
     )
+    twitter_id = models.CharField(max_length=255, default='', editable=False)
 
     def save(self, *args, **kwargs):
         super(Feed, self).save(*args, **kwargs)
-        # Set slug to name
-        self.slug = self.name
+        self.twitter_id = self.name
         super(ModelBase, self).save(*args, **kwargs)
 
 
     def fetch(self, force=False):
-        cache_key = 'jmbo_twitter_feed_%s' % self.slug
+        cache_key = 'jmbo_twitter_feed_%s' % self.id
         cached = cache.get(cache_key, None)
         if cached is not None:
             return cached
@@ -57,7 +57,7 @@ class Feed(ModelBase):
         # Query twitter taking care to handle network errors
         api = twitter.Api()
         try:
-            statuses = api.GetUserTimeline(self.slug, include_rts=True)
+            statuses = api.GetUserTimeline(self.twitter_id or self.slug, include_rts=True)
         except URLError:
             statuses = []
         except ValueError:

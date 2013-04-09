@@ -1,6 +1,10 @@
 Changelog
 =========
 
+next
+----
+#. Do not use slug as the Twitter identifier anymore since it may clash.
+
 0.1.3
 -----
 #. Make admin resilient in case admin_urls.py is not in settings.
