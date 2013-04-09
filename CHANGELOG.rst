@@ -1,8 +1,8 @@
 Changelog
 =========
 
-next
-----
+0.1.4
+-----
 #. Do not use slug as the Twitter identifier anymore since it may clash.
 
 0.1.3
