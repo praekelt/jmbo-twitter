@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.2
+---
+#. Handle Twitter's new API v1 which requires authentication.
+
 0.1.4.1
 -------
 #. More defensive code in the event of python-twitter breaking.
