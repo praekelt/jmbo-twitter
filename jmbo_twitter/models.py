@@ -1,10 +1,14 @@
 import datetime, twitter
 from urllib2 import URLError
+import logging
 
 from django.db import models
 from django.core.cache import cache
 
 from jmbo.models import ModelBase
+
+
+logger = logging.getLogger('django')
 
 
 class Status(ModelBase):
@@ -64,6 +68,10 @@ class Feed(ModelBase):
             statuses= []
         except twitter.TwitterError:
             # Happens when user is not on twitter anymore
+            statuses = []
+        except Exception, e:
+            # All manner of things can go wrong with integration
+            logger.error('jmbo_twitter.models.Feed.fetch - ' + e.message)
             statuses = []
 
         for status in statuses:
