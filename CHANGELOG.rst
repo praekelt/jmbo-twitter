@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.1.4.1
+-------
+#. More defensive code in the event of python-twitter breaking.
+
 0.1.4
 -----
 #. Do not use slug as the Twitter identifier anymore since it may clash.
