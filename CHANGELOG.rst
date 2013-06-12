@@ -1,8 +1,8 @@
 Changelog
 =========
 
-next
-----
+0.1.4.1
+-------
 #. More defensive code in the event of python-twitter breaking.
 
 0.1.4
