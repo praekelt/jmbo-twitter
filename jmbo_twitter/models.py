@@ -4,6 +4,7 @@ import logging
 
 from django.db import models
 from django.core.cache import cache
+from django.conf import settings
 
 from jmbo.models import ModelBase
 
@@ -58,10 +59,27 @@ class Feed(ModelBase):
         if cached is not None:
             return cached
 
+        # Get and check settings
+        di = getattr(settings, 'JMBO_TWITTER', {})
+        ck = di.get('consumer_key')
+        cs = di.get('consumer_secret')
+        atk = di.get('access_token_key')
+        ats = di.get('access_token_secret')
+        if not all([ck, cs, atk, ats]):
+            logger.error(
+                'jmbo_twitter.models.Feed.fetch - incomplete settings'
+            )
+            return []
+
         # Query twitter taking care to handle network errors
-        api = twitter.Api()
+        api = twitter.Api(
+            consumer_key=ck, consumer_secret=cs, access_token_key=atk, 
+            access_token_secret=ats
+        )
         try:
-            statuses = api.GetUserTimeline(self.twitter_id or self.slug, include_rts=True)
+            statuses = api.GetUserTimeline(
+                screen_name=self.twitter_id or self.slug, include_rts=True
+            )
         except URLError:
             statuses = []
         except ValueError:
