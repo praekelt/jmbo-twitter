@@ -1,8 +1,8 @@
 Changelog
 =========
 
-next
-----
+0.2.1
+-----
 #. Actually respect the force parameter when fetching tweets.
 #. Clean up confusing code.
 
