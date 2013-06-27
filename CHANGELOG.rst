@@ -1,6 +1,11 @@
 Changelog
 =========
 
+next
+----
+#. Actually respect the force parameter when fetching tweets.
+#. Clean up confusing code.
+
 0.2
 ---
 #. Handle Twitter's new API v1 which requires authentication.
