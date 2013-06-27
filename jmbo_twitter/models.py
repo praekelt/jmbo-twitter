@@ -56,7 +56,7 @@ class Feed(ModelBase):
     def fetch(self, force=False):
         cache_key = 'jmbo_twitter_feed_%s' % self.id
         cached = cache.get(cache_key, None)
-        if cached is not None:
+        if (cached is not None) and not force:
             return cached
 
         # Get and check settings
