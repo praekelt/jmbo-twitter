@@ -1,6 +1,6 @@
 {% load i18n jmbo_template_tags jmbo_twitter_tags %}
 
-{% jmbocache 3600 'status-list-item-thumbnail-inclusion' object.id %}
+{% jmbocache 300 'status-list-item-thumbnail-inclusion' object.id %}
     {% if not object.retweeted_status %}
         <a href="http://twitter.com/{{ object.user.screen_name }}">
             <img src="{{ object.user.profile_image_url }}" class="left" />
