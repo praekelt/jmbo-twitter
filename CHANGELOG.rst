@@ -1,6 +1,10 @@
 Changelog
 =========
 
+next
+----
+#. Cache templates.
+
 0.2.1
 -----
 #. Actually respect the force parameter when fetching tweets.
