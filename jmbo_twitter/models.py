@@ -13,7 +13,7 @@ logger = logging.getLogger('django')
 
 
 class Status(ModelBase):
-    """Purely a wrapper that allows us to use jmbo-foundry's listings for 
+    """Purely a wrapper that allows us to use jmbo-foundry's listings for
     tweets."""
     def __init__(self, status):
         # Copy attributes over
@@ -24,7 +24,7 @@ class Status(ModelBase):
             'relative_created_at', 'retweet_count', 'retweeted', \
             'retweeted_status', 'source', 'text', 'truncated', 'urls', 'user', \
             'user_mentions', 'created_at_datetime')
-        for attr in attrs:            
+        for attr in attrs:
             setattr(self, attr, getattr(status, attr))
 
     @property
@@ -36,9 +36,9 @@ class Status(ModelBase):
 
 
 class Feed(ModelBase):
-    """A feed represents  a twitter user account""" 
+    """A feed represents a twitter user account"""
     name = models.CharField(
-        max_length=255, 
+        max_length=255,
         unique=True,
         help_text="A twitter account name, eg. johnsmith"
     )
@@ -67,7 +67,7 @@ class Feed(ModelBase):
 
         # Query twitter taking care to handle network errors
         api = twitter.Api(
-            consumer_key=ck, consumer_secret=cs, access_token_key=atk, 
+            consumer_key=ck, consumer_secret=cs, access_token_key=atk,
             access_token_secret=ats
         )
         try:
@@ -91,7 +91,7 @@ class Feed(ModelBase):
             status.created_at_datetime = datetime.datetime.fromtimestamp(
                 status.created_at_in_seconds
             )
-       
+
         if statuses:
             # This is also a convenient place to set the feed image url
             status = statuses[0]

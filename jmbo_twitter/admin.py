@@ -28,13 +28,13 @@ class FeedAdmin(ModelBaseAdmin):
             parent = ''
 
         try:
-            url = reverse('feed-fetch-force', args=[obj.name]), 
+            url = reverse('feed-fetch-force', args=[obj.name]),
             one = '<a href="%s">Fetch tweets</a>' % url
         except NoReverseMatch:
             one = "Fetch tweets - add jmbo_twitter admin_urls to settings, eg. <code>(r'^admin/', include('jmbo_twitter.admin_urls'))</code>"
 
         try:
-            url = reverse('feed-tweets', args=[obj.name]), 
+            url = reverse('feed-tweets', args=[obj.name]),
             two = '<a href="%s">View tweets</a>' % url
         except NoReverseMatch:
             two = "View tweets - add jmbo_twitter admin_urls to settings, eg. <code>(r'^admin/', include('jmbo_twitter.admin_urls'))</code>"

@@ -1,38 +1,40 @@
 {% load i18n jmbo_template_tags jmbo_twitter_tags %}
 
-{% if not object.retweeted_status %}
-    <a href="http://twitter.com/{{ object.user.screen_name }}">
-        <img src="{{ object.user.profile_image_url }}" class="left" />
-    </a>
-    <div class="title">
-        <a href="http://twitter.com/{{ object.user.screen_name }}">{{ object.user.name }}</a>    
-        <a href="http://twitter.com/{{ object.user.screen_name }}">@{{ object.user.screen_name }}</a>
-    </div>
-    <div class="meta">
-        <div class="byline">
-            {% humanize_time_diff object.created_at_datetime _('ago') %}
+{% jmbocache 300 'status-list-item-thumbnail-inclusion' object.id %}
+    {% if not object.retweeted_status %}
+        <a href="http://twitter.com/{{ object.user.screen_name }}">
+            <img src="{{ object.user.profile_image_url }}" class="left" />
+        </a>
+        <div class="title">
+            <a href="http://twitter.com/{{ object.user.screen_name }}">{{ object.user.name }}</a>
+            <a href="http://twitter.com/{{ object.user.screen_name }}">@{{ object.user.screen_name }}</a>
         </div>
-        <div class="description">
-            {{ object.text|tweetify|safe }}
-        </div>        
-    </div>
-{% else %}
-    <a href="http://twitter.com/{{ object.user.screen_name }}">
-        <img src="{{ object.retweeted_status.user.profile_image_url }}" />
-    </a>
-    <div class="title">
-        <a href="http://twitter.com/{{ object.retweeted_status.user.screen_name }}">{{ object.retweeted_status.user.name }}</a>
-        <a href="http://twitter.com/{{ object.retweeted_status.user.screen_name }}">@{{ object.retweeted_status.user.screen_name }}</a>
-    </div>
-    <div class="meta">
-        <div class="byline">
-            {% humanize_time_diff object.created_at_datetime _('ago') %}
+        <div class="meta">
+            <div class="byline">
+                {% humanize_time_diff object.created_at_datetime _('ago') %}
+            </div>
+            <div class="description">
+                {{ object.text|tweetify|safe }}
+            </div>
         </div>
-        <div class="description">
-            {{ object.retweeted_status.text|tweetify|safe }}
+    {% else %}
+        <a href="http://twitter.com/{{ object.user.screen_name }}">
+            <img src="{{ object.retweeted_status.user.profile_image_url }}" />
+        </a>
+        <div class="title">
+            <a href="http://twitter.com/{{ object.retweeted_status.user.screen_name }}">{{ object.retweeted_status.user.name }}</a>
+            <a href="http://twitter.com/{{ object.retweeted_status.user.screen_name }}">@{{ object.retweeted_status.user.screen_name }}</a>
         </div>
-        <div class="retweeted-by">
-            {% blocktrans with name=object.user.name %}Retweeted by {{ name }}{% endblocktrans %}
+        <div class="meta">
+            <div class="byline">
+                {% humanize_time_diff object.created_at_datetime _('ago') %}
+            </div>
+            <div class="description">
+                {{ object.retweeted_status.text|tweetify|safe }}
+            </div>
+            <div class="retweeted-by">
+                {% blocktrans with name=object.user.name %}Retweeted by {{ name }}{% endblocktrans %}
+            </div>
         </div>
-    </div>
-{% endif %}
+    {% endif %}
+{% endjmbocache %}
