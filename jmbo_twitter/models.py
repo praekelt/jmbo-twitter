@@ -109,6 +109,11 @@ class Feed(ModelBase):
         return statuses
 
     @property
+    def fetched(self):
+        cache_key = 'jmbo_twitter_feed_%s' % self.id
+        return cache.get(cache_key, [])
+
+    @property
     def tweets(self):
         class MyList(list):
             """Slightly emulate QuerySet API so jmbo-foundry listings work"""
@@ -118,7 +123,7 @@ class Feed(ModelBase):
                 return len(self) > 0
 
         result = []
-        for status in self.fetch():
+        for status in self.fetched():
             result.append(Status(status))
 
         return MyList(result)
