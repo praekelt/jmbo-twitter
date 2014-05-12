@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='jmbo-twitter',
-    version='0.2.2',
+    version='0.3',
     description='Pull, cache, display tweets.',
     long_description=(open('README.rst', 'r').read() +
                         open('AUTHORS.rst', 'r').read() +
@@ -15,6 +15,7 @@ setup(
     install_requires = [
         'python-twitter>=1.0',
         'jmbo-foundry>=0.4',
+        'django-celery',
     ],
     include_package_data=True,
     tests_require=[

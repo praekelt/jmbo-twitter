@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.3
+---
+#. Fetch updates asynchronously.
+
 0.2.2
 -----
 #. Cache templates.
