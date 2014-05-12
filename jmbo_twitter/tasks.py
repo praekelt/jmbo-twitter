@@ -1,4 +1,5 @@
 from celery.decorators import periodic_task
+from celery.task.schedules import crontab
 
 from jmbo_twitter.models import Feed
 
