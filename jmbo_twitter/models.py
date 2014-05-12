@@ -123,7 +123,7 @@ class Feed(ModelBase):
                 return len(self) > 0
 
         result = []
-        for status in self.fetched():
+        for status in self.fetched:
             result.append(Status(status))
 
         return MyList(result)
