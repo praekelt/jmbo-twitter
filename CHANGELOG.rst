@@ -1,6 +1,10 @@
 Changelog
 =========
 
+next
+----
+#. Protect against cache destruction if Twitter throttles us.
+
 0.3
 ---
 #. Fetch updates asynchronously.
