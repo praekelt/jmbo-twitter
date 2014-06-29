@@ -1,8 +1,8 @@
 Changelog
 =========
 
-next
-----
+0.3.1
+-----
 #. Protect against cache destruction if Twitter throttles us.
 
 0.3
