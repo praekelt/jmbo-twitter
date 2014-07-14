@@ -1,6 +1,10 @@
 Changelog
 =========
 
+next
+----
+#. Increase cache time so we can survive Twitter outages better.
+
 0.3.1
 -----
 #. Protect against cache destruction if Twitter throttles us.

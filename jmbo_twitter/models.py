@@ -105,9 +105,10 @@ class Feed(ModelBase):
             if changed:
                 self.save()
 
-            # Only set if there are statuses. Twitter may randomly throttle use
-            # and destroy our cache without this check.
-            cache.set(cache_key, statuses, 1200)
+            # Only set if there are statuses. Twitter may randomly throttle us
+            # and destroy our cache without this check. Cache for a long time
+            # incase Twitter goes down.
+            cache.set(cache_key, statuses, 86400)
 
         # Legacy return
         return statuses
