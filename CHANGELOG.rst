@@ -1,8 +1,8 @@
 Changelog
 =========
 
-next
-----
+0.3.2
+-----
 #. Increase cache time so we can survive Twitter outages better.
 
 0.3.1
