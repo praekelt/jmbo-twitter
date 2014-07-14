@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='jmbo-twitter',
-    version='0.3.1',
+    version='0.3.2',
     description='Pull, cache, display tweets.',
     long_description=(open('README.rst', 'r').read() +
                         open('AUTHORS.rst', 'r').read() +
