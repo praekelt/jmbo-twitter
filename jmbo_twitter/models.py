@@ -4,6 +4,7 @@ import logging
 
 from django.db import models
 from django.core.cache import cache
+from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
 from jmbo.models import ModelBase
@@ -35,20 +36,14 @@ class Status(ModelBase):
         raise NotImplemented
 
 
-class Feed(ModelBase):
-    """A feed represents a twitter user account"""
-    name = models.CharField(
-        max_length=255,
-        unique=True,
-        help_text="A twitter account name, eg. johnsmith"
-    )
-    profile_image_url = models.CharField(
-        null=True, editable=False, max_length=255
-    )
-    twitter_id = models.CharField(max_length=255, default='', editable=False)
+class StatusMixin(object):
+
+    def get_statuses(self, api):
+        raise NotImplemented
 
     def fetch(self, force=False):
-        cache_key = 'jmbo_twitter_feed_%s' % self.id
+        klass_name = self.__class__.__name__
+        cache_key = 'jmbo_twitter_%s_%s' % (klass_name, self.id)
         cached = cache.get(cache_key, None)
         if (cached is not None) and not force:
             return cached
@@ -61,7 +56,8 @@ class Feed(ModelBase):
         ats = di.get('access_token_secret')
         if not all([ck, cs, atk, ats]):
             logger.error(
-                'jmbo_twitter.models.Feed.fetch - incomplete settings'
+                'jmbo_twitter.models.%s.fetch - incomplete settings' \
+                    % klass_name
             )
             return []
 
@@ -71,20 +67,14 @@ class Feed(ModelBase):
             access_token_secret=ats
         )
         try:
-            # Fall back to slug for historical reasons
-            statuses = api.GetUserTimeline(
-                screen_name=self.name or self.slug, include_rts=True
-            )
-        except URLError:
-            statuses = []
-        except ValueError:
-            statuses= []
-        except twitter.TwitterError:
-            # Happens when user is not on twitter anymore
+            statuses = self.get_statuses(api)
+        except (URLError, ValueError, twitter.TwitterError):
             statuses = []
         except Exception, e:
             # All manner of things can go wrong with integration
-            logger.error('jmbo_twitter.models.Feed.fetch - ' + e.message)
+            logger.error(
+                'jmbo_twitter.models.%s.fetch - %s' % (klass_name, e.message)
+            )
             statuses = []
 
         for status in statuses:
@@ -93,18 +83,6 @@ class Feed(ModelBase):
             )
 
         if statuses:
-            # This is also a convenient place to set the feed image url
-            status = statuses[0]
-            changed = False
-            if status.user.profile_image_url != self.profile_image_url:
-                self.profile_image_url = status.user.profile_image_url
-                changed = True
-            if status.user.name != self.title:
-                self.title = status.user.name
-                changed = True
-            if changed:
-                self.save()
-
             # Only set if there are statuses. Twitter may randomly throttle us
             # and destroy our cache without this check. Cache for a long time
             # incase Twitter goes down.
@@ -115,7 +93,8 @@ class Feed(ModelBase):
 
     @property
     def fetched(self):
-        cache_key = 'jmbo_twitter_feed_%s' % self.id
+        klass_name = self.__class__.__name__
+        cache_key = 'jmbo_twitter_%s_%s' % (klass_name, self.id)
         return cache.get(cache_key, [])
 
     @property
@@ -132,3 +111,56 @@ class Feed(ModelBase):
             result.append(Status(status))
 
         return MyList(result)
+
+
+class Feed(ModelBase, StatusMixin):
+    """A feed represents a twitter user account"""
+    name = models.CharField(
+        max_length=255,
+        unique=True,
+        help_text="A twitter account name, eg. johnsmith"
+    )
+    profile_image_url = models.CharField(
+        null=True, editable=False, max_length=255
+    )
+    twitter_id = models.CharField(max_length=255, default='', editable=False)
+
+    def get_statuses(self, api):
+        # Fall back to slug for historical reasons
+        statuses = api.GetUserTimeline(
+            screen_name=self.name or self.slug, include_rts=True
+        )
+        return statuses
+
+    def fetch(self, force=False):
+        statuses = super(Feed, self).fetch(force=force)
+
+        if statuses:
+            # This is a convenient place to set the feed image url
+            status = statuses[0]
+            changed = False
+            if status.user.profile_image_url != self.profile_image_url:
+                self.profile_image_url = status.user.profile_image_url
+                changed = True
+            if status.user.name != self.title:
+                self.title = status.user.name
+                changed = True
+            if changed:
+                self.save()
+
+        return statuses
+
+
+class Search(ModelBase, StatusMixin):
+    """A search represents a twitter keyword search"""
+    criteria = models.CharField(
+        max_length=255,
+        unique=True,
+        help_text="Search string or a hashtag"
+    )
+
+    class Meta:
+        verbose_name_plural = _("Searches")
+
+    def get_statuses(self, api):
+        return api.GetSearch(self.criteria)
