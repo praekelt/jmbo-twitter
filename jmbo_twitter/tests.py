@@ -60,3 +60,11 @@ class TestCase(BaseTestCase):
     def test_search_get_statuses(self):
         statuses = self.search.get_statuses(self.fakeapi)
         self.assertEqual(len(statuses), 1)
+
+    def test_feed_detail_view(self):
+        response = self.client.get(self.feed.get_absolute_url())
+        self.assertEqual(response.status_code, 200)
+
+    def test_search_detail_view(self):
+        response = self.client.get(self.search.get_absolute_url())
+        self.assertEqual(response.status_code, 200)

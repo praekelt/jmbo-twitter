@@ -1,6 +1,10 @@
 Changelog
 =========
 
+next
+----
+#. New content type `Search` allows tweets to be retrieved by term or hashtag.
+
 0.3.2
 -----
 #. Increase cache time so we can survive Twitter outages better.
