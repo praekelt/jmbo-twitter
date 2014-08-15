@@ -1,0 +1,21 @@
+language: python
+
+python:
+  - "2.7"
+
+env:
+  - DJANGO=Django==1.4.10
+
+# command to install dependencies
+install:
+  - pip install -q $DJANGO --use-mirrors
+  - pip install -r requirements.txt --use-mirrors
+
+before_script:
+  - psql -U postgres -c "create extension postgis"
+  - psql -U postgres -c "create user test"
+  - psql -U postgres -c "alter user test createdb"
+  - psql -U postgres -c "create database test_jmbo_twitter with owner test encoding 'UTF8' template template_postgis"
+
+# command to run tests
+script: python setup.py test

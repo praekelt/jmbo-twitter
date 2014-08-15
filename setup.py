@@ -17,6 +17,7 @@ setup(
         'python-twitter>=1.0',
         'jmbo-foundry>=0.4',
         'django-celery',
+        'requests',
     ],
     include_package_data=True,
     tests_require=[
