@@ -6,7 +6,7 @@ from foundry.settings import *
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'test_jmbo_twitter',
+        'NAME': 'jmbo_twitter',
         'USER': 'postgres',
         'PASSWORD': '',
         'HOST': '',
