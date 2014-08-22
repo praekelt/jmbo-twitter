@@ -19,3 +19,5 @@ CKEDITOR_UPLOAD_PATH = expanduser('~')
 # Disable celery
 CELERY_ALWAYS_EAGER = True
 BROKER_BACKEND = 'memory'
+
+SOUTH_TESTS_MIGRATE = False
