@@ -15,13 +15,13 @@ before_script:
     - createdb -U postgres -E UTF8 template_postgis
 #    - createlang -U postgres -d template_postgis plpgsql
     - psql -U postgres -d postgres -c "UPDATE pg_database SET datistemplate='true' WHERE datname='template_postgis';"
-#    - psql -U postgres -d template_postgis -f /usr/share/postgresql/9.2/contrib/postgis-2.0/postgis.sql
-#    - psql -U postgres -d template_postgis -f /usr/share/postgresql/9.2/contrib/postgis-2.0/spatial_ref_sys.sql
-#    - psql -U postgres -d template_postgis -c "GRANT ALL ON geometry_columns TO PUBLIC;"
-#    - psql -U postgres -d template_postgis -c "GRANT ALL ON spatial_ref_sys TO PUBLIC;"
-#    - psql -U postgres -d template_postgis -c "GRANT ALL ON geography_columns TO PUBLIC;"
+    - psql -U postgres -d template_postgis -f postgis.sql
+    - psql -U postgres -d template_postgis -f spatial_ref_sys.sql
+    - psql -U postgres -d template_postgis -c "GRANT ALL ON geometry_columns TO PUBLIC;"
+    - psql -U postgres -d template_postgis -c "GRANT ALL ON spatial_ref_sys TO PUBLIC;"
+    - psql -U postgres -d template_postgis -c "GRANT ALL ON geography_columns TO PUBLIC;"
+    - psql -U postgres -c "create database jmbo_twitter encoding 'UTF8'"
 
-#  - psql -U postgres -c "create database test_jmbo_twitter encoding 'UTF8'"
 #  - psql -U postgres -d test_jmbo_twitter -c "create extension postgis"
 #  - psql -U postgres -d test_jmbo_twitter -c "create extension postgis_topology"
 # - psql -U postgres -c "create user test"
