@@ -13,7 +13,7 @@ install:
 
 before_script:
     - createdb -U postgres -E UTF8 template_postgis
-    - createlang -U postgres -d template_postgis plpgsql
+#    - createlang -U postgres -d template_postgis plpgsql
     - psql -U postgres -d postgres -c "UPDATE pg_database SET datistemplate='true' WHERE datname='template_postgis';"
     - psql -U postgres -d template_postgis -f /usr/share/postgresql/9.2/contrib/postgis-2.0/postgis.sql
     - psql -U postgres -d template_postgis -f /usr/share/postgresql/9.2/contrib/postgis-2.0/spatial_ref_sys.sql
