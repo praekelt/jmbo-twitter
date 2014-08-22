@@ -9,17 +9,14 @@ python:
 env:
   - DJANGO=Django==1.4.10
 
-# command to install dependencies
 install:
   - pip install -q $DJANGO --use-mirrors
   - pip install -r requirements.txt --use-mirrors
 
+# Django 1.4 requires a template_postgis, so install old way
 before_script:
     - sudo apt-get install libgeoip-dev
-    - ls -lr /usr/share/postgresql/9.2/contrib/
-#    - psql -U postgres -l
     - createdb -U postgres -E UTF8 template_postgis
-#    - createlang -U postgres -d template_postgis plpgsql
     - psql -U postgres -d postgres -c "UPDATE pg_database SET datistemplate='true' WHERE datname='template_postgis';"
     - psql -U postgres -d template_postgis -f /usr/share/postgresql/9.2/contrib/postgis-2.1/postgis.sql
     - psql -U postgres -d template_postgis -f /usr/share/postgresql/9.2/contrib/postgis-2.1/spatial_ref_sys.sql
@@ -28,11 +25,4 @@ before_script:
     - psql -U postgres -d template_postgis -c "GRANT ALL ON geography_columns TO PUBLIC;"
     - psql -U postgres -c "create database jmbo_twitter encoding 'UTF8' template template_postgis"
 
-#  - psql -U postgres -d test_jmbo_twitter -c "create extension postgis"
-#  - psql -U postgres -d test_jmbo_twitter -c "create extension postgis_topology"
-# - psql -U postgres -c "create user test"
-#  - psql -U postgres -c "alter user test createdb"
-#- psql -U postgres -c "create database test_jmbo_twitter with owner test encoding 'UTF8' template template_postgis"
-
-# command to run tests
 script: python setup.py test
