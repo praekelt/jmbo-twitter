@@ -16,6 +16,6 @@ DATABASES = {
 
 CKEDITOR_UPLOAD_PATH = expanduser('~')
 
-# Disable celery
+## Disable celery
 CELERY_ALWAYS_EAGER = True
 BROKER_BACKEND = 'memory'

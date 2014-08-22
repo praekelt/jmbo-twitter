@@ -8,6 +8,6 @@
 #psql -U postgres -c "create database test_jmbo_twitter with owner test encoding 'UTF8'"
 #psql -U postgres -d test_jmbo_twitter -c "create extension postgis"
 #psql -U postgres -d test_jmbo_twitter -c "create extension postgis_topology"
-
+#
 
 ./ve/bin/python setup.py test
