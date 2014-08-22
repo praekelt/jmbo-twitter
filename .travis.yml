@@ -1,3 +1,6 @@
+addons:
+    postgresql: "9.1"
+
 language: python
 
 python:
@@ -12,6 +15,8 @@ install:
   - pip install -r requirements.txt --use-mirrors
 
 before_script:
+    - ls -lr /usr/share/postgresql/9.1/contrib/postgis*
+    - psql -U postgres -l
     - createdb -U postgres -E UTF8 template_postgis
 #    - createlang -U postgres -d template_postgis plpgsql
     - psql -U postgres -d postgres -c "UPDATE pg_database SET datistemplate='true' WHERE datname='template_postgis';"
@@ -20,7 +25,7 @@ before_script:
 #    - psql -U postgres -d template_postgis -c "GRANT ALL ON geometry_columns TO PUBLIC;"
 #    - psql -U postgres -d template_postgis -c "GRANT ALL ON spatial_ref_sys TO PUBLIC;"
 #    - psql -U postgres -d template_postgis -c "GRANT ALL ON geography_columns TO PUBLIC;"
-    - psql -U postgres -c "create database jmbo_twitter encoding 'UTF8'"
+    - psql -U postgres -c "create database jmbo_twitter encoding 'UTF8' template template_postgis"
 
 #  - psql -U postgres -d test_jmbo_twitter -c "create extension postgis"
 #  - psql -U postgres -d test_jmbo_twitter -c "create extension postgis_topology"
