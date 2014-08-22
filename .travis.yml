@@ -15,8 +15,8 @@ install:
   - pip install -r requirements.txt --use-mirrors
 
 before_script:
-    - ls -lr /usr/share/postgresql/9.1/contrib/postgis*
-    - psql -U postgres -l
+    - ls -lr /usr/share/postgresql/9.2/contrib/postgis*
+#    - psql -U postgres -l
     - createdb -U postgres -E UTF8 template_postgis
 #    - createlang -U postgres -d template_postgis plpgsql
     - psql -U postgres -d postgres -c "UPDATE pg_database SET datistemplate='true' WHERE datname='template_postgis';"
