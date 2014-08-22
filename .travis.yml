@@ -15,6 +15,7 @@ install:
   - pip install -r requirements.txt --use-mirrors
 
 before_script:
+    - sudo apt-get install libgeoip-dev
     - ls -lr /usr/share/postgresql/9.2/contrib/
 #    - psql -U postgres -l
     - createdb -U postgres -E UTF8 template_postgis
