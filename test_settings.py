@@ -14,6 +14,25 @@ DATABASES = {
     }
 }
 
+INSTALLED_APPS = [
+    'django.contrib.auth',
+    'django.contrib.comments',
+    'django.contrib.contenttypes',
+    'django.contrib.sites',
+    'django.contrib.gis',
+    'atlas',
+    'category',
+    'jmbo',
+    'photologue',
+    'secretballot',
+    'publisher',
+    'south',
+]
+
+USE_TZ = True
+
+SITE_ID = 1
+
 CKEDITOR_UPLOAD_PATH = expanduser('~')
 
 # Disable celery

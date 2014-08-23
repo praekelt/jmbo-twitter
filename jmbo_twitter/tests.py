@@ -1,10 +1,9 @@
 from django.core import management
 from django.test import TestCase as BaseTestCase
 from django.test.client import Client as BaseClient, RequestFactory
+from django.contrib.auth.models import User
 
 from twitter import Status
-
-from foundry.models import Member
 
 from jmbo_twitter.models import Feed, Search
 
@@ -26,7 +25,7 @@ class TestCase(BaseTestCase):
         cls.client = BaseClient()
 
         # Editor
-        cls.editor, dc = Member.objects.get_or_create(
+        cls.editor, dc = User.objects.get_or_create(
             username='editor',
             email='editor@test.com'
         )
