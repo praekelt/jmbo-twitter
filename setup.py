@@ -15,7 +15,7 @@ setup(
     packages = find_packages(),
     install_requires = [
         'python-twitter>=1.0',
-        'jmbo-foundry>=0.4',
+        'jmbo',
         'django-celery',
         'requests',
     ],

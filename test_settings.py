@@ -1,7 +1,5 @@
 from os.path import expanduser
 
-from foundry.settings import *
-
 
 DATABASES = {
     'default': {
@@ -13,6 +11,25 @@ DATABASES = {
         'PORT': '',
     }
 }
+
+INSTALLED_APPS = [
+    'django.contrib.auth',
+    'django.contrib.comments',
+    'django.contrib.contenttypes',
+    'django.contrib.sites',
+    'django.contrib.gis',
+    'atlas',
+    'category',
+    'jmbo',
+    'photologue',
+    'secretballot',
+    'publisher',
+    'south',
+]
+
+USE_TZ = True
+
+SITE_ID = 1
 
 CKEDITOR_UPLOAD_PATH = expanduser('~')
 
