@@ -1,7 +1,5 @@
 from os.path import expanduser
 
-from foundry.settings import *
-
 
 DATABASES = {
     'default': {
