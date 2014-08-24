@@ -1,0 +1,9 @@
+{% load i18n jmbo_template_tags foundry_tags %}
+
+<div class="title">
+    <a href="{{ object.get_absolute_url }}">{{ object.title }}</a>
+</div>
+
+<div class="tweets">
+    {% listing object.tweets style='VerticalThumbnail' %}
+</div>

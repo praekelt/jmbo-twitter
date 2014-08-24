@@ -1,0 +1,8 @@
+{% extends "jmbo/inclusion_tags/modelbase_detail.html" %}
+{% load i18n jmbo_template_tags foundry_tags %}
+
+{% block content %}
+    <div class="tweets">
+        {% listing object.tweets style='VerticalThumbnail' %}
+    </div>
+{% endblock %}
