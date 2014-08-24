@@ -1,8 +1,8 @@
 Changelog
 =========
 
-next
-----
+0.4
+---
 #. New content type `Search` allows tweets to be retrieved by term or hashtag.
 
 0.3.2
