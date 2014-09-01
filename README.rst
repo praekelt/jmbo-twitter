@@ -2,7 +2,7 @@ Jmbo Twitter
 ============
 **Jmbo app to fetch and display tweets as listings.**
 
-.. figure:: https://travis-ci.org/praekelt-jmbo-twitter.svg?branch=develop
+.. figure:: https://travis-ci.org/praekelt/jmbo-twitter.svg?branch=develop
    :align: center
    :alt: Travis
 
