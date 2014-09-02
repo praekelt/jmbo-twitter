@@ -17,8 +17,6 @@ INSTALLED_APPS = [
     'django.contrib.comments',
     'django.contrib.contenttypes',
     'django.contrib.sites',
-    'django.contrib.gis',
-    'atlas',
     'category',
     'jmbo',
     'photologue',
