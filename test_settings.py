@@ -3,7 +3,7 @@ from os.path import expanduser
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'jmbo_twitter',
         'USER': 'postgres',
         'PASSWORD': '',
