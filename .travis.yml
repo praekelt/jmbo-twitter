@@ -11,9 +11,15 @@ env:
 
 install:
   - pip install -q $DJANGO --use-mirrors
-  - pip install -r requirements.txt --use-mirrors
+  - pip install -r jmbo_twitter/tests/requirements.txt --use-mirrors
+#  - pip install coveralls --use-wheel
 
 before_script:
     - psql -U postgres -c "create database jmbo_twitter encoding 'UTF8'"
 
-script: python setup.py test
+script:
+    - python setup.py test
+#    - coverage run setup.py test
+
+#after_success:
+#    coveralls
