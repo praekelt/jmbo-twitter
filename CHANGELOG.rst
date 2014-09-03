@@ -1,6 +1,10 @@
 Changelog
 =========
 
+next
+----
+#. Up minimum required `jmbo` to 1.1.1.
+
 0.4
 ---
 #. New content type `Search` allows tweets to be retrieved by term or hashtag.
