@@ -18,7 +18,7 @@ DATABASES = {
 }
 
 INSTALLED_APPS = (
-    'jmbo-twitter',
+    'jmbo_twitter',
     'jmbo',
     'photologue',
     'category',
