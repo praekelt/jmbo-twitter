@@ -19,6 +19,7 @@ DATABASES = {
 
 INSTALLED_APPS = (
     'jmbo_twitter',
+    'foundry',
     'jmbo',
     'photologue',
     'category',
@@ -32,6 +33,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'south',
 )
+
+ROOT_URLCONF = 'jmbo_twitter.tests.urls'
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
