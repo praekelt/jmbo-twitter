@@ -24,7 +24,6 @@ INSTALLED_APPS = (
     'category',
     'likes',
     'secretballot',
-    'pagination',
     'publisher',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,7 +40,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'likes.middleware.SecretBallotUserIpUseragentMiddleware',
-    'pagination.middleware.PaginationMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
