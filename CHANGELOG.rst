@@ -4,6 +4,7 @@ Changelog
 next
 ----
 #. Up minimum required `jmbo` to 1.1.1.
+#. Set a timeout of 10 seconds to prevent stuck tasks.
 
 0.4
 ---

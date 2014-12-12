@@ -64,7 +64,7 @@ class StatusMixin(object):
         # Query twitter taking care to handle network errors
         api = twitter.Api(
             consumer_key=ck, consumer_secret=cs, access_token_key=atk,
-            access_token_secret=ats
+            access_token_secret=ats, requests_timeout=10
         )
         try:
             statuses = self.get_statuses(api)
