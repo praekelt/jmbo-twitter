@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.4.2
+-----
+#. Up minimum required `python-twitter` to 1.1.
+
 0.4.1
 -----
 #. Up minimum required `jmbo` to 1.1.1.
