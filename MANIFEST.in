@@ -5,3 +5,4 @@ include README.rst
 recursive-include jmbo_twitter/migrations *
 recursive-include jmbo_twitter/templates *
 recursive-include jmbo_twitter/templatetags *
+recursive-include jmbo_twitter/tests *
