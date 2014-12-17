@@ -14,7 +14,7 @@ setup(
     url='http://github.com/praekelt/jmbo-twitter',
     packages = find_packages(),
     install_requires = [
-        'python-twitter>=1.0',
+        'python-twitter>=1.1',
         'jmbo>=1.1.1',
         'jmbo-foundry>=1.1.20',
         'django-celery',
