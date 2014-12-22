@@ -1,8 +1,8 @@
 Changelog
 =========
 
-next
-----
+0.4.3
+-----
 #. Ignore result of celery tasks as appropriate.
 
 0.4.2
