@@ -1,6 +1,10 @@
 Changelog
 =========
 
+next
+----
+#. Ignore result of celery tasks as appropriate.
+
 0.4.2
 -----
 #. Up minimum required `python-twitter` to 1.1.
