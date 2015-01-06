@@ -1,8 +1,10 @@
-from django.conf.urls.defaults import patterns, url
+from django.conf.urls import patterns, url
+
+from jmbo.views import ObjectDetail
 
 
 urlpatterns = patterns(
     '',
-    url(r'^feed/(?P<slug>[\w-]+)/$', 'jmbo.views.object_detail', name='feed_object_detail'),
-    url(r'^search/(?P<slug>[\w-]+)/$', 'jmbo.views.object_detail', name='search_object_detail'),
+    url(r'^feed/(?P<slug>[\w-]+)/$', ObjectDetail.as_view(), name='feed_object_detail'),
+    url(r'^search/(?P<slug>[\w-]+)/$', ObjectDetail.as_view(), name='search_object_detail'),
 )

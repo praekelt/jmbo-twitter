@@ -9,7 +9,7 @@ DEBUG = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'jmbo_twitter',
+        'NAME': 'jmbo',
         'USER': 'postgres',
         'PASSWORD': '',
         'HOST': '',
